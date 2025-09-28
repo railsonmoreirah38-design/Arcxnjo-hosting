@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Arcxnjo Hosting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4a6ee0;
+            --primary-dark: #3a5ac7;
+            --secondary: #6c757d;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --success: #10b981;
+            --gray: #718096;
+            --gray-light: #e2e8f0;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .checkout-header {
+            background: white;
+            border-bottom: 1px solid var(--gray-light);
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .login-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .summary-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .product-info h2 {
+            font-size: 20px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .product-info .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Configuration Steps */
+        .config-steps {
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            margin-bottom: 25px;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .step-content {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 6px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+        }
+        
+        /* Payment Sidebar */
+        .payment-sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .order-total {
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .total-final {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-checkout {
+            background: var(--success);
+            margin-bottom: 15px;
+        }
+        
+        .btn-checkout:hover {
+            background: #0da271;
+        }
+        
+        .security-badges {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="checkout-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Arcxnjo Hosting</a>
+                <a href="#" class="login-link">Já tem uma conta? Fazer login</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="checkout-container">
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="summary-header">
+                    <div class="product-info">
+                        <h2 id="product-name">Plano Avançado - Minecraft</h2>
+                        <div class="price" id="product-price">R$ 29,90/mês</div>
+                    </div>
+                </div>
+
+                <!-- Configuration Steps -->
+                <div class="config-steps">
+                    <!-- Step 1: Periodo de Pagamento -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Período de Pagamento</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="form-group">
+                                <select class="form-select" id="billing-cycle">
+                                    <option value="monthly">Mensal - R$ 29,90</option>
+                                    <option value="quarterly">Trimestral - R$ 80,43 (10% off)</option>
+                                    <option value="semiannual">Semestral - R$ 149,50 (20% off)</option>
+                                    <option value="annual">Anual - R$ 269,10 (25% off)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Configurações -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Configurações do Servidor</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="form-group">
+                                <label>Localização do Servidor</label>
+                                <select class="form-select">
+                                    <option>São Paulo, Brasil</option>
+                                    <option>Rio de Janeiro, Brasil</option>
+                                    <option>Miami, USA</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Versão do Minecraft</label>
+                                <select class="form-select">
+                                    <option>Mais Recente</option>
+                                    <option>1.20.1</option>
+                                    <option>1.19.4</option>
+                                    <option>1.18.2</option>
+                                    <option>Personalizada</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Método de Pagamento -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Método de Pagamento</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="form-group">
+                                <select class="form-select" id="payment-method">
+                                    <option value="pix">PIX (5% de desconto)</option>
+                                    <option value="credit">Cartão de Crédito</option>
+                                    <option value="boleto">Boleto Bancário</option>
+                                    <option value="crypto">Criptomoeda</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Credit Card Form (hidden by default) -->
+                            <div id="credit-card-form" style="display: none;">
+                                <div class="form-group">
+                                    <label>Número do Cartão</label>
+                                    <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div class="form-group">
+                                        <label>Validade</label>
+                                        <input type="text" class="form-control" placeholder="MM/AA">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CVV</label>
+                                        <input type="text" class="form-control" placeholder="123">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nome no Cartão</label>
+                                    <input type="text" class="form-control" placeholder="João Silva">
+                                </div>
+                            </div>
+
+                            <!-- PIX Instructions -->
+                            <div id="pix-instructions" style="display: none;">
+                                <div style="background: #f0f8ff; padding: 15px; border-radius: 6px; text-align: center;">
+                                    <p><strong>Chave PIX: contato@arcxnjo.com</strong></p>
+                                    <p>Pagamento identificado automaticamente em até 15 minutos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Sidebar -->
+            <div class="payment-sidebar">
+                <div class="order-total">
+                    <div class="total-line">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">R$ 29,90</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Desconto:</span>
+                        <span id="discount">-R$ 0,00</span>
+                    </div>
+                    <div class="total-line total-final">
+                        <span>Total:</span>
+                        <span id="final-total">R$ 29,90</span>
+                    </div>
+                </div>
+
+                <a href="#" class="btn btn-checkout" id="checkout-btn">
+                    <i class="fas fa-lock"></i> FINALIZAR COMPRA
+                </a>
+                <button class="btn" onclick="window.history.back()">
+                    VOLTAR AOS PLANOS
+                </button>
+
+                <div class="security-badges">
+                    <p>Compra 100% segura</p>
+                    <div class="badges">
+                        <i class="fas fa-shield-alt" style="color: var(--success);"></i>
+                        <i class="fas fa-lock" style="color: var(--primary);"></i>
+                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic pricing calculation
+        document.getElementById('billing-cycle').addEventListener('change', function() {
+            updatePricing();
+        });
+
+        document.getElementById('payment-method').addEventListener('change', function() {
+            updatePricing();
+            togglePaymentForms();
+        });
+
+        function updatePricing() {
+            const cycle = document.getElementById('billing-cycle').value;
+            const method = document.getElementById('payment-method').value;
+            
+            let basePrice = 29.90;
+            let discount = 0;
+            let cycleText = 'mês';
+
+            // Apply cycle discount
+            switch(cycle) {
+                case 'quarterly':
+                    basePrice = 80.43;
+                    discount = 10;
+                    cycleText = '3 meses';
+                    break;
+                case 'semiannual':
+                    basePrice = 149.50;
+                    discount = 20;
+                    cycleText = '6 meses';
+                    break;
+                case 'annual':
+                    basePrice = 269.10;
+                    discount = 25;
+                    cycleText = 'ano';
+                    break;
+            }
+
+            // Apply payment method discount
+            if (method === 'pix') {
+                basePrice = basePrice * 0.95;
+                discount += 5;
+            }
+
+            // Update displays
+            document.getElementById('subtotal').textContent = `R$ ${basePrice.toFixed(2)}`;
+            document.getElementById('discount').textContent = discount > 0 ? `-${discount}%` : '-R$ 0,00';
+            document.getElementById('final-total').textContent = `R$ ${basePrice.toFixed(2)}`;
+            
+            // Update product info
+            document.getElementById('product-price').textContent = `R$ ${basePrice.toFixed(2)}/${cycleText}`;
+        }
+
+        function togglePaymentForms() {
+            const method = document.getElementById('payment-method').value;
+            document.getElementById('credit-card-form').style.display = method === 'credit' ? 'block' : 'none';
+            document.getElementById('pix-instructions').style.display = method === 'pix' ? 'block' : 'none';
+        }
+
+        // Checkout button action
+        document.getElementById('checkout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const method = document.getElementById('payment-method').value;
+            
+            if (method === 'pix') {
+                alert('Pagamento via PIX selecionado! Chave PIX: contato@arcxnjo.com');
+            } else {
+                alert('Pedido realizado com sucesso! Redirecionando para o pagamento...');
+            }
+        });
+
+        // Initialize
+        updatePricing();
+    </script>
+</body>
+</html>
