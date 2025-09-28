@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Arcxnjo Hosting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4a6ee0;
+            --primary-dark: #3a5ac7;
+            --secondary: #6c757d;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --success: #10b981;
+            --gray: #718096;
+            --gray-light: #e2e8f0;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .checkout-header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .login-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Main Layout */
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        /* Checkout Steps */
+        .checkout-steps {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+        
+        .step:last-child {
+            border-right: none;
+        }
+        
+        .step.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .step-number {
+            background: var(--gray-light);
+            color: var(--dark);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .step.active .step-number {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* Checkout Content */
+        .checkout-content {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            margin: 30px 0;
+        }
+        
+        .payment-option {
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option.selected {
+            border-color: var(--primary);
+            background: #f0f4ff;
+        }
+        
+        .payment-option-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-light);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .payment-title {
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .payment-discount {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 20px;
+        }
+        
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .product-name {
+            font-weight: 500;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .order-totals {
+            margin: 20px 0;
+        }
+        
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .total-final {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-checkout {
+            background: var(--success);
+            margin-bottom: 15px;
+        }
+        
+        .btn-checkout:hover {
+            background: #0da271;
+        }
+        
+        .btn-back {
+            background: var(--gray-light);
+            color: var(--dark);
+        }
+        
+        .btn-back:hover {
+            background: #d1d5db;
+        }
+        
+        /* Security */
+        .security-info {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .step:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="checkout-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">Arcxnjo Hosting</a>
+                <a href="#" class="login-link">Já tem uma conta? Fazer login</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="checkout-layout">
+            <!-- Main Content -->
+            <div class="checkout-main">
+                <!-- Checkout Steps -->
+                <div class="checkout-steps">
+                    <div class="step active">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Configuração</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Revisão & Checkout</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Conclusão</div>
+                    </div>
+                </div>
+
+                <!-- Checkout Content -->
+                <div class="checkout-content">
+                    <!-- Contact Information -->
+                    <div class="section-title">Informações de Contato</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nome *</label>
+                            <input type="text" class="form-control" placeholder="Seu nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sobrenome *</label>
+                            <input type="text" class="form-control" placeholder="Seu sobrenome">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-control" placeholder="seu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Telefone *</label>
+                            <input type="tel" class="form-control" placeholder="(11) 99999-9999">
+                        </div>
+                    </div>
+
+                    <!-- Billing Address -->
+                    <div class="section-title">Endereço de Cobrança</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Endereço *</label>
+                            <input type="text" class="form-control" placeholder="Rua, número">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Complemento</label>
+                            <input type="text" class="form-control" placeholder="Apartamento, bloco">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cidade *</label>
+                            <input type="text" class="form-control" placeholder="Sua cidade">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Estado *</label>
+                            <select class="form-select">
+                                <option value="">Selecione</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="MG">Minas Gerais</option>
+                                <!-- outros estados -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CEP *</label>
+                            <input type="text" class="form-control" placeholder="00000-000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">País *</label>
+                            <select class="form-select">
+                                <option value="BR">Brasil</option>
+                                <option value="US">Estados Unidos</option>
+                                <option value="PT">Portugal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="section-title">Método de Pagamento</div>
+                    <div class="payment-methods">
+                        <div class="payment-option selected" data-method="pix">
+                            <div class="payment-option-header">
+                                <div class="payment-icon">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <div class="payment-title">PIX</div>
+                                <div class="payment-discount">5% OFF</div>
+                            </div>
+                            <div class="payment-description">
+                                Pagamento instantâneo via PIX. Desconto aplicado automaticamente.
+                            </div>
+                        </div>
+
+                        <div class="payment-option" data-method="credit">
+                            <div class="payment-option-header">
+                                <div class="payment-icon">
+                                    <i class="far fa-credit-card"></i>
+                                </div>
+                                <div class="payment-title">Cartão de Crédito</div>
+                            </div>
+                            <div class="payment-description">
+                                Parcele em até 12x. Aceitamos todas as bandeiras.
+                            </div>
+                        </div>
+
+                        <div class="payment-option" data-method="boleto">
+                            <div class="payment-option-header">
+                                <div class="payment-icon">
+                                    <i class="fas fa-barcode"></i>
+                                </div>
+                                <div class="payment-title">Boleto Bancário</div>
+                            </div>
+                            <div class="payment-description">
+                                Pagamento em até 3 dias úteis. Vencimento em 7 dias.
+                            </div>
+                        </div>
+
+                        <div class="payment-option" data-method="crypto">
+                            <div class="payment-option-header">
+                                <div class="payment-icon">
+                                    <i class="fab fa-bitcoin"></i>
+                                </div>
+                                <div class="payment-title">Criptomoeda</div>
+                            </div>
+                            <div class="payment-description">
+                                Bitcoin, Ethereum e outras criptomoedas.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 10px;">
+                            <span>Eu li e concordo com os <a href="#" style="color: var(--primary);">Termos de Serviço</a> e <a href="#" style="color: var(--primary);">Política de Privacidade</a></span>
+                        </label>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px;">
+                        <a href="cart.html" class="btn btn-back">
+                            <i class="fas fa-arrow-left"></i> Voltar ao Carrinho
+                        </a>
+                        <button class="btn btn-checkout" id="complete-order">
+                            <i class="fas fa-lock"></i> Finalizar Pedido
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="order-summary">
+                <h3 style="margin-bottom: 20px; font-size: 18px;">Resumo do Pedido</h3>
+                
+                <div class="product-item">
+                    <div class="product-name">
+                        <div>Plano Avançado Minecraft</div>
+                        <small style="color: var(--gray);">4GB RAM • 40GB SSD • Mensal</small>
+                    </div>
+                    <div class="product-price">R$ 29,90</div>
+                </div>
+
+                <div class="order-totals">
+                    <div class="total-line">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">R$ 29,90</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Desconto PIX:</span>
+                        <span id="discount" style="color: var(--success);">-R$ 1,50</span>
+                    </div>
+                    <div class="total-line total-final">
+                        <span>Total:</span>
+                        <span id="final-total">R$ 28,40</span>
+                    </div>
+                </div>
+
+                <div class="security-info">
+                    <div>Compra 100% segura</div>
+                    <div class="security-badges">
+                        <i class="fas fa-shield-alt" style="color: var(--success);"></i>
+                        <i class="fas fa-lock" style="color: var(--primary);"></i>
+                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ✅ SCRIPT DE DETECÇÃO DE PLANO - JÁ INTEGRADO
+        const urlParams = new URLSearchParams(window.location.search);
+        const plano = urlParams.get('plano');
+
+        if (plano) {
+            updatePlanDetails(plano);
+        }
+
+        function updatePlanDetails(plano) {
+            const plans = {
+                'basico': { nome: 'Plano Básico', preco: 14.90, ram: '2GB', ssd: '20GB' },
+                'avancado': { nome: 'Plano Avançado', preco: 29.90, ram: '4GB', ssd: '40GB' },
+                'profissional': { nome: 'Plano Profissional', preco: 49.90, ram: '8GB', ssd: '80GB' }
+            };
+            
+            const plan = plans[plano];
+            if (plan) {
+                // Atualiza o resumo do pedido
+                document.querySelector('.product-name div').textContent = plan.nome + ' Minecraft';
+                document.querySelector('.product-name small').textContent = 
+                    `${plan.ram} RAM • ${plan.ssd} SSD • Mensal`;
+                document.querySelector('.product-price').textContent = `R$ ${plan.preco.toFixed(2)}`;
+                
+                // Atualiza totais
+                updateOrderSummary(plan.preco);
+            }
+        }
+
+        // ✅ CÓDIGO ORIGINAL DO CHECKOUT
+        // Payment method selection
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                
+                // Update discount in summary
+                updateOrderSummary();
+            });
+        });
+
+        // Update order summary based on selected payment method
+        function updateOrderSummary(basePrice = 29.90) {
+            const selectedMethod = document.querySelector('.payment-option.selected').dataset.method;
+            const discountElement = document.getElementById('discount');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('final-total');
+            
+            let discount = 0;
+            let total = basePrice;
+            
+            if (selectedMethod === 'pix') {
+                discount = basePrice * 0.05;
+                total = basePrice - discount;
+                discountElement.textContent = `-R$ ${discount.toFixed(2)}`;
+                discountElement.style.color = 'var(--success)';
+            } else {
+                discountElement.textContent = 'R$ 0,00';
+                discountElement.style.color = 'inherit';
+            }
+            
+            subtotalElement.textContent = `R$ ${basePrice.toFixed(2)}`;
+            totalElement.textContent = `R$ ${total.toFixed(2)}`;
+        }
+
+        // Complete order button
+        document.getElementById('complete-order').addEventListener('click', function() {
+            const selectedMethod = document.querySelector('.payment-option.selected').dataset.method;
+            const termsChecked = document.querySelector('input[type="checkbox"]').checked;
+            
+            if (!termsChecked) {
+                alert('Por favor, aceite os termos de serviço para continuar.');
+                return;
+            }
+            
+            if (selectedMethod === 'pix') {
+                alert('Pagamento via PIX selecionado! Chave PIX: contato@arcxnjo.com');
+            } else {
+                alert('Pedido realizado com sucesso! Redirecionando para o pagamento...');
+                // Simulate payment processing
+                setTimeout(() => {
+                    window.location.href = 'success.html';
+                }, 2000);
+            }
+        });
+
+        // Form validation
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() === '') {
+                    this.style.borderColor = 'var(--danger)';
+                } else {
+                    this.style.borderColor = 'var(--border)';
+                }
+            });
+        });
+
+        // Initialize
+        updateOrderSummary();
+    </script>
+</body>
+</html>
